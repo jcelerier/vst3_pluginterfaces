@@ -22,7 +22,7 @@
 
 #if SMTG_OS_WINDOWS
 #include <objbase.h>
-#endif
+#else
 
 #if SMTG_OS_MACOS
 #include <CoreFoundation/CoreFoundation.h>
@@ -57,6 +57,7 @@
 
 #if defined (SMTG_USE_STDATOMIC_H) && SMTG_USE_STDATOMIC_H 
 #include <stdatomic.h>
+#endif
 #endif
 
 namespace Steinberg {
