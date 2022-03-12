@@ -40,13 +40,18 @@ add_library(pluginterfaces STATIC
 
 # check for C11 atomic header
 include(CheckIncludeFileCXX)
-CHECK_INCLUDE_FILE_CXX("stdatomic.h" SMTG_USE_STDATOMIC_H)
-if(SMTG_USE_STDATOMIC_H)
+
+if(WIN32)
+  set(SMTG_USE_STDATOMIC_H 0)
+else()
+  CHECK_INCLUDE_FILE_CXX("stdatomic.h" SMTG_USE_STDATOMIC_H)
+  if(SMTG_USE_STDATOMIC_H)
     target_compile_definitions(pluginterfaces
         PRIVATE
             "SMTG_USE_STDATOMIC_H=${SMTG_USE_STDATOMIC_H}"
     )
-endif(SMTG_USE_STDATOMIC_H)
+  endif()
+endif()
 
 # vst3 interfaces
 if (VST_SDK)
