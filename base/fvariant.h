@@ -48,7 +48,7 @@ public:
 
 //------------------------------------------------------------------------
 	// ctors
-	inline FVariant () { memset (this, 0, sizeof (FVariant)); }
+	inline FVariant () { reset (); }
 	inline FVariant (const FVariant& variant);
 
 	inline FVariant (bool b) : type (kInteger), intValue (b) {}
@@ -156,7 +156,8 @@ public:
 			type &= ~kOwner;
 	}
 
-	void empty ();
+	inline void reset ();
+	inline void empty ();
 //------------------------------------------------------------------------
 	uint16 type;
 	union
@@ -184,54 +185,63 @@ inline bool operator== (const FVariant& v1, const FVariant& v2)
 #endif
 }
 
+//------------------------------------------------------------------------
 template <>
 inline bool FVariant::get<bool> () const
 {
 	return getInt () != 0;
 }
 
+//------------------------------------------------------------------------
 template <>
 inline uint32 FVariant::get<uint32> () const
 {
 	return static_cast<uint32> (getInt ());
 }
 
+//------------------------------------------------------------------------
 template <>
 inline int32 FVariant::get<int32> () const
 {
 	return static_cast<int32> (getInt ());
 }
 
+//------------------------------------------------------------------------
 template <>
 inline int64 FVariant::get<int64> () const
 {
 	return static_cast<int64> (getInt ());
 }
 
+//------------------------------------------------------------------------
 template <>
 inline float FVariant::get<float> () const
 {
 	return static_cast<float> (getFloat ());
 }
 
+//------------------------------------------------------------------------
 template <>
 inline double FVariant::get<double> () const
 {
 	return getFloat ();
 }
 
+//------------------------------------------------------------------------
 template <>
 inline const char8* FVariant::get<const char8*> () const
 {
 	return getString8 ();
 }
 
+//------------------------------------------------------------------------
 template <>
 inline const char16* FVariant::get<const char16*> () const
 {
 	return getString16 ();
 }
 
+//------------------------------------------------------------------------
 template <>
 inline FUnknown* FVariant::get<FUnknown*> () const
 {
@@ -257,7 +267,14 @@ inline void FVariant::empty ()
 		else if ((type & kObject) && object)
 			object->release ();
 	}
-	memset (this, 0, sizeof (FVariant));
+	reset ();
+}
+
+//------------------------------------------------------------------------
+inline void FVariant::reset ()
+{
+	type = kEmpty;
+	intValue = 0;
 }
 
 //------------------------------------------------------------------------

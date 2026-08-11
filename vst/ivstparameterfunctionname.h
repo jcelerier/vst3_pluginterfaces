@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 // This file is part of a Steinberg SDK. It is subject to the license terms
 // in the LICENSE file found in the top-level directory of this distribution
-// and at www.steinberg.net/sdklicenses. 
+// and at www.steinberg.net/sdklicenses.
 // No part of the SDK, including this file, may be copied, modified, propagated,
 // or distributed except according to the terms contained in the LICENSE file.
 //-----------------------------------------------------------------------------
@@ -28,27 +28,36 @@ namespace Steinberg {
 namespace Vst {
 namespace FunctionNameType {
 //--------------------------------------------------------------------
-	const CString kCompGainReduction			= "Comp:GainReduction"; /**  */
-	const CString kCompGainReductionMax			= "Comp:GainReductionMax";
-	const CString kCompGainReductionPeakHold	= "Comp:GainReductionPeakHold";
-	const CString kCompResetGainReductionMax	= "Comp:ResetGainReductionMax";
+///---Compressor Gain Reduction Type -----------
+const CString kCompGainReduction = "Comp:GainReduction";
+const CString kCompGainReductionMax = "Comp:GainReductionMax";
+const CString kCompGainReductionPeakHold = "Comp:GainReductionPeakHold";
+const CString kCompResetGainReductionMax = "Comp:ResetGainReductionMax";
 
-    const CString kLowLatencyMode = "LowLatencyMode"; /** Useful for live situation where low
-														 latency is required:
-														 0 means LowLatency disable,
-														 1 means LowLatency enable */
-    const CString kDryWetMix = "DryWetMix"; /** Allowing to mix the original (Dry) Signal with the processed one (Wet):
-											0.0 means Dry Signal only,
-											0.5 means 50% Dry Signal + 50% Wet Signal,
-											1.0 means Wet Signal only */
-    const CString kRandomize = "Randomize"; /**	Allow to assign some randomized values to some
-                                               parameters in a controlled way*/
+/** Useful for live situation where low latency is required:
+    0 means LowLatency disable,
+    1 means LowLatency enable */
+const CString kLowLatencyMode = "LowLatencyMode";
 
-	/// Panner Type
-	const CString kPanPosCenterX = "PanPosCenterX";	///< Gravity point X-axis [0, 1]=>[L-R] (for stereo: middle between left and right)
-	const CString kPanPosCenterY = "PanPosCenterY";	///< Gravity point Y-axis [0, 1]=>[Front-Rear]
-	const CString kPanPosCenterZ = "PanPosCenterZ";	///< Gravity point Z-axis [0, 1]=>[Bottom-Top]
+/** Allowing to mix the original (Dry) Signal with the processed one (Wet):
+    0.0 means Dry Signal only,
+    0.5 means 50% Dry Signal + 50% Wet Signal,
+    1.0 means Wet Signal only */
+const CString kDryWetMix = "DryWetMix";
 
+///---Randomize Type ------------------------
+/** Assigns randomized values across the full parameter range. */
+const CString kRandomize = "Randomize";
+/** Assigns randomized values around the current parameter values (e.g. +/-5% of the current value).*/
+const CString kRandomizeAroundCurrent = "RandomizeAroundCurrent";
+
+///---Panner Type ---------------------------
+/** Gravity point X-axis [0, 1]=>[L-R] (for stereo: middle between left and right). */
+const CString kPanPosCenterX = "PanPosCenterX";
+/** Gravity point Y-axis [0, 1]=>[Front-Rear]. */
+const CString kPanPosCenterY = "PanPosCenterY";
+/** Gravity point Z-axis [0, 1]=>[Bottom-Top]. */
+const CString kPanPosCenterZ = "PanPosCenterZ";
 
 } // FunctionNameType
 
@@ -122,7 +131,8 @@ if (functionName)
     {
         // paramID could be cached for performance issue
         ParamValue norm = mEditController->getIEditController ()->getParamNormalized (paramID);
-        ParamValue plain = mEditController->getIEditController ()->normalizedParamToPlain (paramID, norm);
+        ParamValue plain = mEditController->getIEditController ()->normalizedParamToPlain (paramID,
+norm);
         // plain is something like -6 (-6dB)
     }
 }

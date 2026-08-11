@@ -58,6 +58,36 @@ enum NoteExpressionTypeIDs : uint32
 	kCustomStart = 100000,	///< start of custom note expression type ids
 	kCustomEnd   = 200000,  ///< end of custom note expression type ids
 	
+	//--- Dedicated for MIDI 2.0 Note Expression Type IDs --------
+	//--- Reserved for Assignable Per Note Controller --------
+	kMidi2AssignablePerNoteControllerStart = 201000,
+	kMidi2AssignablePerNoteControllerEnd = 201255,
+
+	//--- Reserved for Registered Per Note Controller --------
+	kMidi2RegisteredPerNoteControllerStart = 202000,
+
+	kMidi2RegisteredPerNoteControllerPlayingPosition = kMidi2RegisteredPerNoteControllerStart + 0x0C,
+
+	kMidi2RegisteredPerNoteControllerEnd = 202255,
+
+	//--- Reserved for Note On Attribute ---------------------
+	kMidi2NoteOnAttributeStart = 203000,
+
+	/** Orchestral Profile Specific */
+	kMidi2NoteOnOrchestralArticulationStart = kMidi2NoteOnAttributeStart + 0x10,
+	kMidi2NoteOnOrchestralArticulationEnd = kMidi2NoteOnAttributeStart + 0x1F,
+
+	kMidi2NoteOnAttributeEnd = 203255,
+
+	//--- Reserved for Note Off Attribute --------------------
+	kMidi2NoteOffAttributeStart = 204000,
+
+	/** Orchestral Profile Specific */
+	kMidi2NoteOffOrchestralArticulation = kMidi2NoteOffAttributeStart + 0x10,
+
+	kMidi2NoteOffAttributeEnd = 204255,
+	//--- -----------------------------------------------------
+
 	kInvalidTypeID = 0xFFFFFFFF	///< indicates an invalid note expression type
 };
 

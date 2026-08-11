@@ -203,7 +203,7 @@ struct UID
 	    l3_1, l3_2, l3_3, l3_4, l4_1, l4_2, l4_3, l4_4,
 	};
 
-	static const TUID& toTUID () { return data; }
+	constexpr static const TUID& toTUID () { return data; }
 };
 
 /** @return the TUID for an interface. */

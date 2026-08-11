@@ -24,17 +24,18 @@ namespace Vst {
 //------------------------------------------------------------------------
 /** VST 3 SDK Version */
 #ifndef kVstVersionString
-#define kVstVersionString	"VST 3.8.0"	///< SDK version for PClassInfo2
+#define kVstVersionString	"VST 3.8.1"	///< SDK version for PClassInfo2
 #endif
 
 #define kVstVersionMajor	3
 #define kVstVersionMinor	8
-#define kVstVersionSub		0
+#define kVstVersionSub		1
 
 #define VST_VERSION ((kVstVersionMajor << 16) | (kVstVersionMinor << 8) | kVstVersionSub)
 
 // Versions History which allows to write such code:
 // #if VST_VERSION >= VST_3_6_5_VERSION
+#define VST_3_8_1_VERSION	0x030801
 #define VST_3_8_0_VERSION	0x030800
 #define VST_3_7_14_VERSION	0x03070E
 #define VST_3_7_13_VERSION	0x03070D
@@ -103,6 +104,8 @@ typedef uint32 ColorSpec;		///< color defining by 4 component ARGB value (Alpha/
 static const ParamID kNoParamId  = 0xFFFFFFFF;	///< default for uninitialized parameter ID
 static const ParamID kMinParamId = 0;	        ///< value min for a parameter ID
 static const ParamID kMaxParamId = 0x7FFFFFFF;	///< value max for a parameter ID
+static const int32 kStepCountContinuous = 0;    ///< continuous value as stepcount
+static const int32 kStepCountToggle = 1;        ///< toggle value (0 and 1) as stepcount
 
 //------------------------------------------------------------------------
 // Audio Types

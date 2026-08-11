@@ -40,10 +40,41 @@ using BusIndex = int32;
  */
 struct Midi2Controller
 {
-	uint8 bank : 7; // msb
-	TBool registered : 1; // true: registered, false: assignable
-	uint8 index : 7; // lsb
-	TBool reserved : 1;
+	/** Bits 0-6 of byte1 specify the bank. Bit 7 (MSB) indicates the controller type:
+	 *  set = registered controller, clear = assignable controller. */
+	uint8 byte1;
+	/** Bits 0-6 of byte2 specify the controller index. */
+	uint8 byte2;
+
+	// -- Helper functions:
+
+	/** Returns true if the MIDI2 controller struct is a registered controller and false if it is an
+	 *  assignable controller. */
+	static bool isRegisteredController (const Midi2Controller& mc) { return mc.byte1 & 0x80; }
+	/** Returns the bank number of the MIDI2 controller struct. */
+	static uint8 bank (const Midi2Controller& mc) { return mc.byte1 & 0x7F; }
+	/** Returns the index number of the MIDI2 controller struct. */
+	static uint8 index (const Midi2Controller& mc) { return mc.byte2 & 0x7F; }
+
+	/** Creates a new MIDI2 controller struct. */
+	static Midi2Controller create (bool registered, uint8 bank, uint8 index)
+	{
+		Midi2Controller m2c {};
+		setIsRegisteredController (m2c, registered);
+		setBank (m2c, bank);
+		setIndex (m2c, index);
+		return m2c;
+	}
+	/** Sets the flag of the MIDI2 controller struct if it describes a registered or assignable
+	 *	controller. */
+	static void setIsRegisteredController (Midi2Controller& mc, bool registered)
+	{
+		mc.byte1 = (mc.byte1 & 0x7F) | (registered ? 0x80 : 0x00);
+	}
+	/** Set the bank number of the MIDI2 controller struct. */
+	static void setBank (Midi2Controller& mc, uint8 bank) { mc.byte1 = (mc.byte1 & 0x80) | bank; }
+	/** Set the index number of the MIDI2 controller struct. */
+	static void setIndex (Midi2Controller& mc, uint8 index) { mc.byte2 = index & 0x7F; }
 };
 
 //------------------------------------------------------------------------

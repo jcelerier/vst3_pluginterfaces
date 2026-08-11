@@ -62,7 +62,8 @@ inline double GetAlphaNorm (ColorSpec cs)	                 { return (NormalizeCo
 inline double NormalizeAlpha (uint8 alpha)                   {return NormalizeColorComponent (alpha);}
 inline ColorComponent DenormalizeAlpha (double alphaNorm)   { return DenormalizeColorComponent (alphaNorm); }
 /** } */
-inline ColorSpec StripAlpha (ColorSpec argb)               { return (argb & 0x00FFFFFF); }
+inline ColorSpec StripAlpha (ColorSpec argb)                { return (argb & 0x00FFFFFF); }
+inline ColorSpec OpaqueAlpha (ColorSpec argb)               { return (argb | 0xFF000000); }
 
 inline ColorSpec SMTG_CONSTEXPR BlendColor (ColorSpec color, double opacity)
 {
