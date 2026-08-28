@@ -126,7 +126,8 @@
 //-----------------------------------------------------------------------------
 // LINUX
 //-----------------------------------------------------------------------------
-#elif (defined (__gnu_linux__) && __gnu_linux__) || (defined (__linux__) && __linux__)
+#elif (defined (__gnu_linux__) && __gnu_linux__) || (defined (__linux__) && __linux__) || \
+      defined (__FreeBSD__)
 	#define SMTG_OS_LINUX		1
 	#define SMTG_OS_MACOS		0
 	#define SMTG_OS_WINDOWS		0
@@ -156,7 +157,11 @@
 	#endif
 	#define SMTG_CPU_ARM_64EC 0
 
-	#include <endian.h>
+	#if __has_include (<sys/endian.h>)
+		#include <sys/endian.h>
+	#else
+		#include <endian.h>
+	#endif
 	#if __BYTE_ORDER == __LITTLE_ENDIAN
 		#define BYTEORDER kLittleEndian
 	#else
